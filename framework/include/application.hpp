@@ -22,6 +22,8 @@ class Application {
   virtual void updateProjection() = 0;
   // react to key input
   inline virtual void keyCallback(int key, int scancode, int action, int mods) {};
+  // react to mouse scroll
+    inline virtual void mouseScrollCallback(double x, double y) {};
   // 
   virtual std::map<std::string, shader_program>& getShaderPrograms();
   // draw all objects

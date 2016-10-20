@@ -89,10 +89,16 @@ void Launcher::initialize() {
   // set user pointer to access this instance statically
   glfwSetWindowUserPointer(m_window, this);
   // register key input function
-  auto key_func = [](GLFWwindow* w, int a, int b, int c, int d) {
+  auto key_func = [](GLFWwindow* w, int a, int b, int c, int d)
+  {
         static_cast<Launcher*>(glfwGetWindowUserPointer(w))->key_callback(w, a, b, c, d);
   };
   glfwSetKeyCallback(m_window, key_func);
+  auto mouse_scroll_func = [](GLFWwindow* w, double a, double b)
+  {
+      static_cast<Launcher*>(glfwGetWindowUserPointer(w))->mouse_scroll_callback(w, a, b);
+  };
+  glfwSetScrollCallback(m_window, mouse_scroll_func);
   // allow free mouse movement
   glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
   // register resizing function
@@ -198,6 +204,12 @@ void Launcher::key_callback(GLFWwindow* m_window, int key, int scancode, int act
   else if (key == GLFW_KEY_R && action == GLFW_PRESS) {
     update_shader_programs(false);
   }
+  m_application->keyCallback(key, scancode, action, mods);
+}
+// handle mouse scroll
+void Launcher::mouse_scroll_callback(GLFWwindow* m_window, double x, double y)
+{
+    m_application->mouseScrollCallback(x, y);
 }
 
 // calculate fps and show in m_window title

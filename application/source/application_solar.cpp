@@ -58,14 +58,14 @@ model_object moon{};
 //please find declaration of struct "planet" in framework/include/structs.hpp
 planet mercury_properties{mercury_model, mercury, "Mercury",  0.3f, 0, 2.0f};
 planet venus_properties{venus_model, venus, "Venus", 0.4f, 1, 6.0f};
-planet earth_properties{earth_model, earth, "Earth", 0.4f, 2, 9.0f};
+planet earth_properties{earth_model, earth, "Earth", 0.5f, 2, 9.0f};
 planet mars_properties{mars_model, mars, "Mars", 0.3f, 3, 14.0f};
 planet jupiter_properties{jupiter_model, jupiter, "Jupiter", 1.6f, 4, 20.0f};
 planet saturn_properties{saturn_model, saturn, "Saturn", 1.2f, 5, 30.0f};
 planet uranus_properties{uranus_model, uranus, "Uranus", 0.8f, 6, 40.0f};
 planet neptune_properties{neptune_model, neptune, "Neptune", 0.6f, 7, 50.0f};
 planet sun_properties{sun_model, sun, "Sun", 1.5f, 0, 0.0f};
-planet moon_properties{moon_model, moon, "Moon", 0.5f, 0, 12.0f};
+planet moon_properties{moon_model, moon, "Moon", 0.3f, 0, 10.5f};
 //appropriate container to store the planets with their properties
 planet properties[10] = {mercury_properties, venus_properties, earth_properties, mars_properties, jupiter_properties, saturn_properties, uranus_properties, neptune_properties, sun_properties, moon_properties};
 
