@@ -3,6 +3,9 @@
 
 #include <map>
 #include <glbinding/gl/gl.h>
+
+#include "model_loader.hpp"
+
 // use gl definitions from glbinding 
 using namespace gl;
 
@@ -26,6 +29,18 @@ struct texture_object {
   GLuint handle = 0;
   // binding point
   GLenum target = GL_NONE;
+};
+
+struct planet
+{
+    //std::string name;
+    model planet_model;
+    model_object planet_object;
+    std::string name;               //name just needed for recignition in upload_planet_transforms method
+    float size;                     //scale factor for glm::scale function
+    int speed;                      //value needed for rotation speed: the greater the value the slower the rotation around the Sun
+    float distance;          //distance from origin
+    
 };
 
 // shader handle and uniform storage

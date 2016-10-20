@@ -21,6 +21,10 @@ class ApplicationSolar : public Application {
   void keyCallback(int key, int scancode, int action, int mods);
   // draw all objects
   void render() const;
+    
+  void mouseScrollCallback(double x, double y);
+    
+  void upload_planet_transforms(planet const& model) const;
 
  protected:
   void initializeShaderPrograms();

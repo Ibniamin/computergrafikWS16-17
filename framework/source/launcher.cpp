@@ -69,9 +69,12 @@ void Launcher::initialize() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, true);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-  // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+  //MacOS requires core profile
+  #ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  #else
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+  #endif
   // create m_window, if unsuccessfull, quit
   m_window = glfwCreateWindow(m_window_width, m_window_height, "OpenGL Framework", NULL, NULL);
   if (!m_window) {
@@ -144,7 +147,7 @@ void Launcher::update_projection(GLFWwindow* m_window, int width, int height) {
     fov_y = 2.0f * glm::atan(glm::tan(m_camera_fov * 0.5f) * (1.0f / aspect));
   }
   // projection is hor+ 
-  glm::fmat4 camera_projection = glm::perspective(fov_y, aspect, 0.1f, 10.0f);
+  glm::fmat4 camera_projection = glm::perspective(fov_y, aspect, 0.1f, 100.0f);
   // upload matrix to gpu
   m_application->setProjection(camera_projection);
 }
