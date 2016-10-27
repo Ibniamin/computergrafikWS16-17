@@ -15,6 +15,8 @@ class ApplicationSolar : public Application {
 
   // update uniform locations and values
   void uploadUniforms();
+    void uploadUniforms_p();
+    void uploadUniforms_s();
   // update projection matrix
   void updateProjection();
   // react to key input
@@ -26,9 +28,7 @@ class ApplicationSolar : public Application {
     
   void upload_planet_transforms(planet const& model) const;
     
-  //DODANE
-  void generateRandom(GLfloat arr[]);
-  //DODANE
+  float generate_random_numbers(float a, float b);
 
  protected:
   void initializeShaderPrograms();
@@ -38,9 +38,6 @@ class ApplicationSolar : public Application {
   // cpu representation of model
   model_object planet_object;
     
-  //DODANE
-  star_object stars_object;
-  //DODANE
 };
 
 #endif
