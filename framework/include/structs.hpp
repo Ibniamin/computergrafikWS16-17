@@ -23,6 +23,16 @@ struct model_object {
   GLsizei num_elements = 0;
 };
 
+//DODANE
+struct star_object
+{
+    // vertex array object
+    GLuint vertex_AO = 0;
+    // vertex buffer object
+    GLuint vertex_BO = 0;
+};
+//DODANE
+
 // gpu representation of texture
 struct texture_object {
   // handle of texture object

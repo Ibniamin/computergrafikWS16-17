@@ -25,6 +25,10 @@ class ApplicationSolar : public Application {
   void mouseScrollCallback(double x, double y);
     
   void upload_planet_transforms(planet const& model) const;
+    
+  //DODANE
+  void generateRandom(GLfloat arr[]);
+  //DODANE
 
  protected:
   void initializeShaderPrograms();
@@ -33,6 +37,10 @@ class ApplicationSolar : public Application {
 
   // cpu representation of model
   model_object planet_object;
+    
+  //DODANE
+  star_object stars_object;
+  //DODANE
 };
 
 #endif
