@@ -27,7 +27,7 @@ glm::fmat4 normal_matrix{};
 int number_of_stars = 3000;
 std::vector<GLfloat> stars{};
 
-std::random_device rd;     // only used once to initialise (seed) engine
+std::random_device rd;     // only used once to initialise (seed) engine (needed for generate_random_numbers function
 
 model mercury_model{};
 model venus_model{};
@@ -40,12 +40,13 @@ model neptune_model{};
 model sun_model{};
 model moon_model{};
 model star_model{};
-//model star_model{stars, model::POSITION|model::NORMAL};
+//model star_model{stars, model::POSITION|model::NORMAL}; - this was throwing segmentation fault, so we had to create an empty model and "fill" it with values below in the constructor
 
+//function forcalculating a random float within the interval (a,b)
 float ApplicationSolar::generate_random_numbers(float a, float b)
 {
-    std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-    std::uniform_real_distribution<float> uni(a,b); // guaranteed unbiased
+    std::mt19937 rng(rd());                             // random-number engine used (Mersenne-Twister in this case)
+    std::uniform_real_distribution<float> uni(a,b);     // guaranteed unbiased
     
     auto random_float = uni(rng);
     return random_float;
@@ -56,13 +57,15 @@ ApplicationSolar::ApplicationSolar(std::string const& resource_path)
  :Application{resource_path}
  ,planet_object{}
 {
-  int new_stars_size = number_of_stars * 4;
+  int new_stars_size = number_of_stars * 3;
+    //here the container is being resized and filled with random X,Y,Z-position values of our stars
   stars.resize(new_stars_size);
     std::generate(stars.begin(), stars.end(),
     [&]
     {
         return generate_random_numbers(-100.0f, 100.0f);
     });
+    //and now, here we try to do what we wanted to before: create sth like model star_model{stars, model::POSITION|model::NORMAL}. For this we had to basically copy and modify a little bit the constructor from model.cpp file
   star_model.data = stars;
   model::attrib_flag_t contained_attributes = model::POSITION|model::NORMAL;
   // number of components per vertex
@@ -89,6 +92,7 @@ ApplicationSolar::ApplicationSolar(std::string const& resource_path)
 
 //cpu representations
 model_object planet_o{};
+//needed new model_object for stars
 model_object star{};
 
 //please find declaration of struct "planet" in framework/include/structs.hpp
@@ -169,7 +173,9 @@ void ApplicationSolar::render() const
         normal_matrix = {};
     }
     
+    // bind new shader
     glUseProgram(m_shaders.at("star").handle);
+    // bind the VAO to draw
     glBindVertexArray(star.vertex_AO);
     glDrawArrays(gl::GL_POINTS, 0, star_model.vertex_num);
 }
